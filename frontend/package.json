@@ -13,14 +13,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
     "axios": "^1.13.4",
     "next": "^16.1.6",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "zustand": "^5.0.13"
   },
   "devDependencies": {
     "@types/node": "^25.1.0",
     "@types/react": "^19.2.10",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^4.3.0",
     "typescript": "^5.9.3"
   }
 }

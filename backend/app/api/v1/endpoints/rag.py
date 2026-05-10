@@ -2,16 +2,14 @@ from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from app.services.rag_service import RAGService
 import uuid
 import io
-import textract
 
 router = APIRouter()
 
 @router.post('/upload')
 async def upload_doc(class_id: str = Form(...), file: UploadFile = File(...)):
-    # Read bytes
     content_bytes = await file.read()
-    # Try extracting text (textract supports many formats)
     try:
+        import textract  # optional dependency
         text = textract.process(io.BytesIO(content_bytes), extension=file.filename.split('.')[-1]).decode('utf-8')
     except Exception:
         # fallback: try decode

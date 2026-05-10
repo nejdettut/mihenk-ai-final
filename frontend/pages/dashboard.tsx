@@ -18,6 +18,8 @@ const MOCK_ANALYSES: Analysis[] = [
   { id: '3', student_name: 'Mehmet Demir', subject: 'Fen Bilimleri', score: 68, date: '2026-05-06' },
 ]
 
+const FREE_LIMIT = 20
+
 export default function Dashboard() {
   const router = useRouter()
   const { user, hydrate, hydrated, isAuthenticated } = useAuthStore()
@@ -36,6 +38,7 @@ export default function Dashboard() {
   const avgScore = analyses.length
     ? Math.round(analyses.reduce((s, a) => s + a.score, 0) / analyses.length)
     : 0
+  const remaining = Math.max(0, FREE_LIMIT - analyses.length)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -62,9 +65,25 @@ export default function Dashboard() {
           </div>
           <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
             <p className="text-sm text-gray-500 mb-1">Bu Ay Kalan Hak</p>
-            <p className="text-3xl font-bold text-green-600">{10 - analyses.length}</p>
+            <p className={`text-3xl font-bold ${remaining <= 5 ? 'text-red-500' : 'text-green-600'}`}>
+              {remaining}
+              <span className="text-gray-400 text-base font-normal"> / {FREE_LIMIT}</span>
+            </p>
           </div>
         </div>
+
+        {/* Upgrade banner if running low */}
+        {remaining <= 5 && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-5 flex items-center justify-between mb-8">
+            <div>
+              <p className="font-semibold text-yellow-800">Aylık hakiniz azalıyor!</p>
+              <p className="text-yellow-600 text-sm mt-0.5">Pro plana geçerek 200 analize ulaşın, 10 sınıf yönetin.</p>
+            </div>
+            <Link href="/#fiyatlandirma" className="px-5 py-2 bg-yellow-400 text-gray-900 rounded-xl font-semibold text-sm hover:bg-yellow-300 transition whitespace-nowrap">
+              Pro'ya Geç
+            </Link>
+          </div>
+        )}
 
         {/* Quick action */}
         <div className="bg-indigo-600 rounded-2xl p-6 flex items-center justify-between mb-10">
@@ -105,7 +124,7 @@ export default function Dashboard() {
                       <p className="text-sm text-gray-400">{a.subject} · {a.date}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     <span
                       className={`text-lg font-bold ${
                         a.score >= 85 ? 'text-green-600' : a.score >= 60 ? 'text-yellow-600' : 'text-red-500'

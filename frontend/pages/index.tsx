@@ -24,16 +24,26 @@ const plans = [
     name: 'Ücretsiz',
     price: '₺0',
     period: '/ay',
-    features: ['10 analiz/ay', '1 sınıf', 'PDF rapor', 'Email destek'],
+    features: [
+      '20 analiz/ay',
+      '2 sınıf',
+      'PDF rapor',
+      'Email destek',
+    ],
     cta: 'Başla',
     href: '/register',
     highlight: false,
   },
   {
-    name: 'Standart',
+    name: 'Pro',
     price: '₺99',
     period: '/ay',
-    features: ['100 analiz/ay', '5 sınıf', 'PDF + DOCX rapor', 'Öncelikli destek'],
+    features: [
+      '200 analiz/ay',
+      '10 sınıf',
+      'PDF + DOCX rapor',
+      'Öncelikli destek',
+    ],
     cta: 'Şimdi Başla',
     href: '/register',
     highlight: true,
@@ -42,7 +52,12 @@ const plans = [
     name: 'Kurumsal',
     price: '₺999',
     period: '/ay',
-    features: ['Sınırsız analiz', 'Sınırsız sınıf', 'Toplu analiz', 'Özel entegrasyon'],
+    features: [
+      'Sınırsız analiz',
+      'Sınırsız sınıf',
+      'Toplu analiz',
+      'Özel entegrasyon',
+    ],
     cta: 'İletişime Geç',
     href: '/register',
     highlight: false,
@@ -78,10 +93,10 @@ export default function Home() {
               href="/login"
               className="px-8 py-4 bg-white/10 border border-white/30 text-white rounded-xl font-semibold text-lg hover:bg-white/20 transition"
             >
-              Demo Gör
+              Giriş Yap
             </Link>
           </div>
-          <p className="text-indigo-200 text-sm mt-4">Kredi kartı gerekmez · İlk 10 analiz ücretsiz</p>
+          <p className="text-indigo-200 text-sm mt-4">Kredi kartı gerekmez · İlk 20 analiz ücretsiz</p>
         </div>
       </section>
 
@@ -140,10 +155,17 @@ export default function Home() {
                 key={plan.name}
                 className={`rounded-2xl p-8 border-2 flex flex-col ${
                   plan.highlight
-                    ? 'border-indigo-500 bg-indigo-600 text-white shadow-xl shadow-indigo-200'
+                    ? 'border-indigo-500 bg-indigo-600 text-white shadow-xl shadow-indigo-200 relative'
                     : 'border-gray-200 bg-white'
                 }`}
               >
+                {plan.highlight && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                    <span className="bg-yellow-400 text-gray-900 text-xs font-bold px-4 py-1 rounded-full">
+                      EN POPÜLER
+                    </span>
+                  </div>
+                )}
                 <div className="mb-6">
                   <p className={`text-sm font-semibold mb-1 ${plan.highlight ? 'text-indigo-200' : 'text-indigo-600'}`}>
                     {plan.name}

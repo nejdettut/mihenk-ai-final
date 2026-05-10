@@ -4,5 +4,18 @@
   "devCommand": "cd frontend && npm run dev",
   "installCommand": "cd frontend && npm install",
   "framework": "nextjs",
-  "regions": ["iad1"]
+  "regions": [
+    "iad1"
+  ],
+  "experimentalServices": {
+    "frontend": {
+      "entrypoint": "frontend",
+      "routePrefix": "/",
+      "framework": "nextjs"
+    },
+    "backend": {
+      "entrypoint": "backend",
+      "routePrefix": "/_/backend"
+    }
+  }
 }
